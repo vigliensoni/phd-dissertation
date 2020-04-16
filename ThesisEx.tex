@@ -1,0 +1,433 @@
+\documentclass[12pt,letterpaper]{report}
+
+% Standard packages
+\usepackage{amsmath}	
+\usepackage{scalerel}
+
+% Extra math definitions
+% \usepackage{graphics}		% PostScript figures
+
+% To control indentation of descriptions
+\usepackage{enumitem}
+% \setlist[description]{leftmargin=0cm,labelindent=0cm}
+% \setlist[description]{labelindent=25pt,style=multiline,leftmargin=2.5cm}
+
+
+\usepackage{fixltx2e} % subscript in text mode (http://tex.stackexchange.com/questions/1013/how-to-typeset-subscript-in-usual-text-mode)
+
+\usepackage{setspace}		% 1.5 spacing
+\usepackage{longtable}          % Tables spanning pages
+
+
+\usepackage[all]{nowidow}	% For handling widows
+
+
+% FOR BLANK PAGE
+% \usepackage{afterpage}
+% \newcommand\blankpage{%
+%     \null
+%     \thispagestyle{empty}%
+%     \addtocounter{page}{-1}%
+%     \newpage}
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% To rotate figures, from http://tex.stackexchange.com/questions/159988/sidewaysfigure-and-landscape
+\usepackage{rotating}
+\usepackage{tikz}
+\usepackage{blindtext}
+
+%special font (nice ones but small: Accanthis ADF Std, Gentium)
+\usepackage{fontspec}
+% \defaultfontfeatures{Mapping=tex-text}
+\setmainfont{TeX Gyre Pagella}
+% \setsansfont{Trebuchet MS} 
+% \setmonofont{Inconsolata}
+%for custom font
+%https://www.overleaf.com/help/73-i-have-a-custom-font-id-like-to-load-to-my-document-how-can-i-do-this#.V7IdJZMrLmE
+
+
+
+
+\usepackage{graphicx}		% for using special syntax for graphs (http://tex.stackexchange.com/questions/37650/problem-inserting-figure-to-latex-file-using-texlipse)
+% \usepackage{url} % for URLs
+% \usepackage[hyphens,spaces,obeyspaces]{url}
+\usepackage{url}
+\usepackage{booktabs} % for horizontal lines in tables
+\usepackage{siunitx} % for scientific notation numbers
+\usepackage{amssymb} % BigO
+\usepackage{xfrac}
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TODO NOTES
+% http://tex.stackexchange.com/questions/9796/how-to-add-todo-notes
+\usepackage[textsize=scriptsize]{todonotes}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% FOOTNOTES 
+% At the bottom
+% http://latex-community.org/forum/viewtopic.php?t=5001
+\usepackage[bottom]{footmisc}
+% Do not reset by chapter
+\usepackage{chngcntr}
+\counterwithout{footnote}{chapter}
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Thesis' Custom packages
+% \usepackage[first]{datestamp}	% Datestamp on first page of each chapter`'
+\usepackage[fancyhdr]{McECEThesis}	% Thesis style
+\usepackage{McGillLogo}		% McGill University crest
+\usepackage{color}
+% \definecolor{myred}{rgb}{0.33, 0.0, 0.0}
+\definecolor{myred}{rgb}{0.0, 0.0, 0.0}
+% \def\headrulehook{\color{red}}		% Color the header rule
+\def\headrulehook{\color{myred}}		% Color the header rule
+% $Id: ThesisEx.tex,v 1.1 2005/06/09 12:48:46 kabal Exp $
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% CHICAGO STYLE BIBLIOGRAPHY
+\usepackage[authordate,backend=biber]{biblatex-chicago}
+\bibliography{literature_diss}
+% Line breaks of long URLs
+% http://tex.stackexchange.com/questions/134191/line-breaks-of-long-urls-in-biblatex-bibliography
+\setcounter{biburllcpenalty}{7000}
+\setcounter{biburlucpenalty}{8000}
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Multiple figures in single figure, causing conflicts
+\usepackage[margin=0.75cm]{caption}
+\usepackage{subcaption}
+
+
+% %===== page layout
+% % Define the side margins for a right-side page
+% \insidemargin = 1.3in
+% \outsidemargin = 0.8in
+% % \outsidemargin = 2.1in
+
+% % Above margin is space above the header
+% % Below margin is space below footer
+% \abovemargin = 1.1in
+% \belowmargin = 0.75in
+
+
+
+\DeclareMathOperator*{\Bigcdot}{\scalerel*{\cdot}{\bigodot}}
+
+
+
+
+% \usepackage{titling}			% Package for working with the title
+% \setlength{\droptitle}{-8em}   % Shift title up
+
+
+%DIF LATEXDIFF DIFFERENCE FILE
+%DIF DEL old.tex   Sat Jun 20 10:36:29 2015
+%DIF ADD new.tex   Sat Jun 20 10:36:36 2015
+%DIF PREAMBLE EXTENSION ADDED BY LATEXDIFF
+%DIF UNDERLINE PREAMBLE %DIF PREAMBLE
+\RequirePackage[normalem]{ulem} %DIF PREAMBLE
+\RequirePackage{color}\definecolor{RED}{rgb}{1,0,0}\definecolor{BLUE}{rgb}{0,0,1} %DIF PREAMBLE
+\providecommand{\DIFadd}[1]{{\protect\color{blue}\uwave{#1}}} %DIF PREAMBLE
+\providecommand{\DIFdel}[1]{}                      %DIF PREAMBLE
+%DIF SAFE PREAMBLE %DIF PREAMBLE
+\providecommand{\DIFaddbegin}{} %DIF PREAMBLE
+\providecommand{\DIFaddend}{} %DIF PREAMBLE
+\providecommand{\DIFdelbegin}{} %DIF PREAMBLE
+\providecommand{\DIFdelend}{} %DIF PREAMBLE
+%DIF FLOATSAFE PREAMBLE %DIF PREAMBLE
+\providecommand{\DIFaddFL}[1]{\DIFadd{#1}} %DIF PREAMBLE
+\providecommand{\DIFdelFL}[1]{\DIFdel{#1}} %DIF PREAMBLE
+\providecommand{\DIFaddbeginFL}{} %DIF PREAMBLE
+\providecommand{\DIFaddendFL}{} %DIF PREAMBLE
+\providecommand{\DIFdelbeginFL}{} %DIF PREAMBLE
+\providecommand{\DIFdelendFL}{} %DIF PREAMBLE
+%DIF END PREAMBLE EXTENSION ADDED BY LATEXDIFF
+
+
+
+
+ 
+
+%========= Document start
+
+\begin{document}
+
+
+% \newpage\null\thispagestyle{empty}\newpage
+%===== Title page
+\title{
+\vspace{-1cm}
+% Automatic music recommendation in context: 
+Evaluating the performance improvement\\
+ of a music recommendation model\\
+  by using user-centric features.}
+
+% Improving the performance of a music recommendation model by using user-centric features
+
+% Improving the performance of a music recommendation model by means of user-centric features
+
+
+\author{Augusto Gabriel Vigliensoni-Martin}
+\date{\Month\ \number\year}
+\organization{%
+  \\[0.2in]
+  \McGillCrest {!}{1in}\\	% McGill University crest
+  \\[0.1in]
+
+  Department of Music Research\\
+  McGill University\\
+  Montr\'eal, Canada}
+\note{%
+  {\color{red} \hrule height 0.4ex}
+  \vskip 3ex
+  A thesis submitted to McGill University in partial fulfilment of the
+  requirements of the degree of Doctor of Philosophy.
+  \vskip 3ex
+%   \vskip 1ex  
+  \copyright\ \the\year\ Augusto Gabriel Vigliensoni-Martin
+}
+
+\maketitle
+
+%===== Justification, spacing for the main text
+\raggedbottom
+% \onehalfspacing
+\doublespacing
+% \setstretch{2.0}
+\pagenumbering{roman}
+
+
+\interfootnotelinepenalty=10000
+
+%===== Abstract, Sommaire & Acknowledgments
+% \newpage\null\thispagestyle{empty}\newpage
+\section*{\centering Abstract}
+
+The way that we as society consume and enjoy music has changed. Almost ubiquitous internet connectivity, web-based technologies, and portability of media players nowadays enable us to access very large repositories of music from almost anywhere, at any time.
+However, since the amount of information in these repositories is huge and we only know a small part of it, finding the proper music to fit into our listening situation can be daunting.
+Automated music recommendation systems help people to find music based on their past music preferences, in acoustic features of the music they have enjoyed, and in additional sources of information such as music metadata or popularity.
+However, the value we assign to music seems to be also dependent on our demographic characteristics, listening behaviour, and context, and so we hypothesise that these characteristics---which in the context of this dissertation we call \textit{user-centric} features---should be considered when creating music recommendation systems.
+
+In this dissertation we investigate the impact of using user-centric features in the performance of music recommendation models.
+We begin with a summary of previous research on music preference and listening behaviour, as well as with a review of music listening information databases. We then examine the main approaches for automated recommendation and how these have been applied in the music domain. 
+Next, we describe the collection and characteristics of a large dataset of music listening histories, and we formalise a set of listening behavioural features that characterise people's listening traits. 
+We then evaluate the performance a series of music recommendation models using combinations of user-centric features.
+Finally, we conclude with a discussion about the dataset, on user-centric features, and on performance improvement and the music recommendation industry. 
+
+
+% \newpage\null\thispagestyle{empty}\newpage
+
+
+\section*{\centering R\'esum\'e}
+
+La façon dont nous, en tant que société, consommons et apprécions la musique a changé. La quasi omniprésence d’une connexion d’internet, des technologies basées sur le web, et la portabilité des lecteurs de musique nous permet désormais d’accéder à de très larges répertoires musicaux depuis à peu près partout et à n’importe quel moment. Cependant, la quantité d’information dans ces répertoires est énorme et dans la mesure où l’on n’en connaît qu’une petite partie, trouver la musique s’adaptant à notre situation d’écoute peut devenir décourageant. Les systèmes de recommandation automatiques aident les gens à trouver de la musique en se basant sur leurs préférences musicales passées, sur des descripteurs acoustiques de la musique qu’ils ont appréciée, et sur des sources d’information supplémentaires comme les métadonnées ou la popularité. Cependant, l’importance que l’on attribue à la musique semble aussi dépendre des caractéristiques démographiques, de notre comportement d’écoute, et du contexte d’écoute. Ainsi, nous faisons l’hypothèse que ces caractéristiques---appelées descripteurs \textit{utilisateur-centré} dans cette dissertation---doivent être pris en compte lors de la création de système de recommandation musical. 
+
+Dans cette dissertation, nous étudions l’impact de l’utilisation de descripteurs utilisateur-centré sur la performance des modèles de recommandation musicale. Nous commençons par un résumé des travaux de recherches antérieurs concernant la préférence musicale et le comportement d’écoute, mais également une revue de littérature des bases de données d’informations reliées à l’écoute musicale. Ainsi, nous examinons les principales approches de recommandation automatique et comment elles ont été appliquées au domaine musical. Ensuite, nous décrivons la collection et les caractéristiques d'un grand ensemble de données sur l’histoire de l'écoute musicale, et nous formalisons un ensemble de descripteurs du comportement d’écoute caractérisant les traits d’écoutes d’une personne. Nous évaluons ensuite les performances d’une série de modèles de recommandation utilisant une combinaison de descripteurs utilisateur-centré. Enfin, nous concluons par une discussion concernant l’ensemble de données, sur les descripteurs utilisateur-centré, et sur la l’amélioration de la performance et sur l’industrie de la recommandation musicale.
+
+
+
+
+
+
+
+% We live in a technological era that allows us to enjoy music beyond one's own music collection. 
+% Digital music services such as \emph{Spotify}, \emph{Pandora}, \emph{Tidal}, and \emph{Google Play}, content resolvers and music aggregators such as \emph{Playdar} and \emph{The Hype Machine}, and video-sharing websites such as \emph{YouTube} provide us with real-time access to millions of songs. In these massive repositories, searching and selecting the best music for matching our mood or listening context can be a hard task due to the amount of available information. In fact, we only know a small part of it, and so we often end up listening to the same music day after day.
+
+% \emph{Automatic music recommendation} and \emph{playlist generation systems} offer us ways to discover and enjoy music. The former does so by exploring songs in the long tail, where most of the non-popular and fringe items reside in large collections, and the latter by creating song sequences to comply with or drive the mood for specific contexts. Using different filtering methods, either based on the listener and other listeners' previous preferences and ratings, in the extraction and analysis of a song's low-level acoustic features, or a combination of these, music recommendation systems can generate user-customized recommendations and playlists.
+
+% However, the value of music in people’s everyday life seems to be dependent on the context and activities in which they hear music, and so extracting, analysing, and exploiting their music listening habits can improve the performance of a music recommendation service, helping people to find what they want to listen to in everyday life contexts.
+
+\newpage
+
+\section*{\centering Acknowledgements}
+
+First, I want to thank my supervisor Professor Ichiro Fujinaga for supporting and keeping me on track during all these years. Whenever I encountered problems, or I was not sure of how to go on, I could rely on him to put things into perspective. I am also grateful to him for always being fair and supportive for this main project, and all other side projects I embarked on. I am also very thankful to Professor David Brackett who contributed to this dissertation as a second reader.
+
+% I want to first express my sincere gratitude to Professor Ichiro Fujinaga. His constant support, knowledge, vision, and driving force really helped me in setting and achieving the goals for this research project. 
+
+I am also very thankful to my colleagues at the Music Technology Area at McGill. In one way or another all of these people helped me during the long process of my research project and dissertation: 
+Claire Arthur (for the useful insights and thorough proofreading of the final version of this dissertation);  
+Bruno \'Angeles (for being so generous since day one); 
+Ryan Bannon (for keeping all machinery running, always bringing inappropriate jokes, and giving me nice tips on dark comedians); 
+Ashley Burgoyne (for being always so sharp and tidy, and sharing the statistical knowledge that we all need); 
+Greg Burlet (for keeping a low profile, and being quite generous with his talent); 
+Darryl Cameron (for always providing a hands-on solution to everything I needed during these years);
+Andrew Hankinson (for driving me to be more autonomous); 
+Jason Hockman (for always bringing together people); 
+Emily Hopkins (for the remarkable proofreading, being organised, and always having a smile); 
+Reiner Kramer (for bringing to the lab a desired level of psychedelia, always being kind with help, and getting me back into running);
+Esteban Maestre (for being the most critical of my friends, you are the greatest); 
+Cory McKay (for always sharing his knowledge, and allowing me to participate and contribute into his projects);
+Alastair Porter (for being one of the nicest, knowledgeable, and most generous people I met at the lab, and for helping me at the very early stages of the data collection); 
+Etienne Thoret (for helping with the French version of the dissertation abstract); and
+Marcelo Wanderley (for having helped me understand how academia works). 
+
+
+
+
+Staying sane while working on a project for this long is difficult. A series of friends have made my life much better and easier at McGill, and in Montr\'eal. In no special order: 
+Jeronimo Barbosa and Kamilla de Souza, 
+Mohamed Fehari,
+Fran\c{c}ois Germain, 
+Francisca Insulza and Fabrizio Gallanti,
+Myriam Jacob-Allard and Simon Plouffe,
+Yaolong Ju,  
+Prasun Lala and Rola Harmouche, 
+Sven-Amin Lembke, 
+Evan Magoni, 
+Corina McDonald, 
+Pascal Nadon and Brigitte Desjardins,
+Eduardo Noya and Ashley Long,
+Andy Poblete,
+David Romblom and Julie Bixby, 
+Juan S\'aez, 
+Charis Saitis, 
+Roger Sheperd and Patricia Sarrazin-Sullivan, 
+Jordan Smith,
+Joe Thibodeau, 
+Martha Thomae, 
+Marko Timlin,
+Ling Xiao Yang, and 
+Mark Zadel.
+
+% Sakyong Mipham Rinpoche
+
+This research was mainly supported by Becas Bicentenario, Comisi\'on Nacional de Ciencia y Tecnolog\'ia, Gobierno de Chile. I would also like to express my gratitude to the Schulich School of Music, the Centre for Interdisciplinary Research for Music Media and Technology, and the Social Sciences and Humanities Research Council of Canada for their additional help. An important part of this work was made using ComputeCanada's High Performance Computing resources, particularly the Shared Hierarchical Academic Research Computing Network cluster, which is part of the WestGrid organization. Also, this dissertation would not have been possible without the aid of Pablo Rodr\'iguez and Marian Salamovich during its inception. 
+
+
+Finally, above all, I would like to thank my family: Antonia, Justina, Santiago, and Vito. Throughout this time you have always being there for me, tolerated my odd humour, gave me encouragement, and aided me in whatever I did. When it is your turn, I will be the one taking care of you, and will support you in anything you would like to pursue.
+
+
+\newpage
+
+\section*{\centering Preface}
+This dissertation, and the research to which it refers, is the candidate’s own original work except for commonly understood and accepted ideas, or where explicit reference to the work of other people, published or otherwise, is made. The dissertation is formatted as a monograph comprising six chapters and includes contents from the following conference publications (in reverse chronological order):
+
+\begin{itemize}
+  \item Vigliensoni, Gabriel, and Ichiro Fujinaga. 2016. “Automatic music recommendation systems: Do demographic, profiling, and contextual features improve their performance?” In \textit{Proceedings of the 17th International Society for Music Information Retrieval Conference}, 94--100. New York City, NY.
+  \item Vigliensoni, Gabriel, and Ichiro Fujinaga. 2014. “Time-shift normalization and listener profiling in a large dataset of music listening histories.” In \textit{Proceedings of the 4th annual seminar on Cognitively Based Music Informatics Research}. Toronto, ON.
+  \item Vigliensoni, Gabriel, and Ichiro Fujinaga. 2014. “Identifying time zones in a large dataset of music listening logs.” In \textit{Proceedings of the ACM SIGIR International Workshop on Social Media Retrieval and Analysis}, 27--32. Gold Coast, Australia.
+  \item Vigliensoni, Gabriel, John Ashley Burgoyne, and Ichiro Fujinaga. 2013. “Musicbrainz for the world: the Chilean experience.” In \textit{Proceedings of the 14th International Society for Music Information Retrieval Conference}, 131--6. Curitiba, Brazil.
+\end{itemize}
+
+The candidate was responsible for every step involved in designing and carrying out all experiments mentioned in this dissertation, as well as analysing collected data and preparing manuscripts for all the publications listed above. 
+Professor Ichiro Fujinaga, the candidate's supervisor, provided guidance in experimental planning, data analysis, interpretation of the results, and proofreading of all publications. He also made available for use laboratory space, computational resources, and supplied additional funding for presenting the research outcome at conferences.
+ComputeCanada's SHARCNET cluster provided additional high-performance computing resources for data processing and analysis.
+
+%========== Tables of contents, figures, tables
+\setcounter{tocdepth}{2} % controls the depth of the toc
+\tableofcontents
+% \newpage\null\thispagestyle{empty}\newpage
+\listoffigures
+\listoftables
+
+
+%========== Tables of contents, figures, tables
+% \newpage\null\thispagestyle{empty}\newpage
+\chapter*{List of Acronyms}\markright{List of Terms}
+
+\begin{longtable}{ll}
+
+  API & Application Programming Interface\\
+  CB & Content-based\\
+  CF & Collaborative Filtering\\
+  ESM & Experience Sampling Method\\
+  HPC & High Performance Computing\\
+  LFID & Last.fm Identifier\\
+  MBID & MusicBrainz Identifier\\
+  MLHD & Music Listening Histories Dataset\\
+  MMTD & Million Musical Tweets Dataset\\
+  MSD & Million Song Dataset
+  % RS & Recommendation System
+  
+\end{longtable}
+
+% \setstretch{1.50} %214
+% \setstretch{1.75} %236
+% \setstretch{1.80} %240
+% \setstretch{1.875} %248
+\setstretch{1.90} %248
+% \setstretch{1.95} %255
+% \setstretch{2} %261
+
+\cleardoublepage
+\pagenumbering{arabic}
+
+%========== Chapters 
+
+% ========== Introduction
+\typeout{}
+% \newpage\null\thispagestyle{empty}\newpage
+\setcounter{page}{1}
+\include{Ch1-Introduction}
+
+
+% ========== Human-music listening interaction
+\typeout{}
+\setcounter{chapter}{1} % for having chapter as number 1 even with no previous chapters
+\include{Ch2-Human-music-listening-interaction} 
+
+
+% ========== Recommender systems
+\typeout{}
+\setcounter{chapter}{2} % for having chapter as number 2 even with no previous chapters
+\include{Ch4-Recommender-systems} 
+
+% % %========== Music listening histories interaction dataset
+\typeout{}
+\setcounter{chapter}{3} % for having chapter as number 3 even with no previous chapters
+\include{Ch5-Music-listening-histories-dataset}
+
+% %========== Listener aware music recommendation
+\typeout{}
+% \setcounter{page}{1}
+\setcounter{chapter}{4} % for having chapter as number 4 even with no previous chapters
+% \newpage\null\thispagestyle{empty}\newpage
+\include{Ch6-Listener-aware-music-recommendation}
+
+% %========== Conclusions
+\typeout{}
+\setcounter{chapter}{5} % for having chapter as number 5 even with no previous chapters
+% \setcounter{page}{1}
+\include{Ch7-Conclusion}
+
+
+%========== Appendices
+% \appendix
+
+%==========
+% \typeout{}
+% \input{A-A}
+
+
+%========== Bibliography
+% \setcounter{page}{1}
+% \newpage\null\thispagestyle{empty}\newpage
+\typeout{}
+
+% 1
+% \autocite{vigliensoni16automatic}
+
+% 2
+% \citeauthor{vigliensoni14identifying}
+
+% 3
+% \textcite{vigliensoni14identifying} 
+
+
+\renewcommand\bibname{References} % Change bibliography title
+\begingroup % change bibliography interline space
+\setstretch{1.5}
+\setlength\bibitemsep{0pt}
+\printbibliography
+\endgroup
+
+
+
+\end{document}

@@ -1,0 +1,330 @@
+%!TEX root = ThesisEx.tex
+% \resetdatestamp
+
+\chapter{Conclusion}\label{Ch7-Conclusion}
+The main motivation for doing this research was to evaluate if the performance of a music recommendation model could be improved by using user-centric features---demographic, behavioural, and contextual characteristics of the listener. 
+In order to perform this evaluation, we surveyed previous research on music preference and listening behaviour using ethnographic methods (i.e., user-driven approaches), and we also reviewed the research and outcome of studies based on the analysis of large amounts of data collected from user interaction with music services (i.e., data-driven approaches). 
+The results of those studies showed that the number of interactions between listeners, their characteristics (i.e., their demographic, profiling, and contextual features), and their music preference seems to be quite large. 
+Hence, we decided to carry out a data-centric study because we estimated that a very large dataset may provide enough data to address the curse of dimensionality of the highly dimensional space of music preference, thus enabling the investigation of the large number of interactions.
+
+
+
+Subsequently, we reviewed currently available datasets of music listening preference data, and found that no single dataset contained both the listeners' demographic data and a large amount of non-aggregated listening logs for a large number of listeners. As a result, we decided to collect our own dataset, the Music Listening Histories Dataset (MLHD), which we design to address the specific characteristics and variables that we wanted to evaluate.
+
+We then reviewed how the general recommendation problem is formal\-ised, how the main techniques have been established by researchers in the literature, and how they have been implemented on current, commercial recommendation applications. We also examined some of the common metrics that are used to evaluate the performance of these systems.
+Later, we described why we chose the specific source of data for our dataset and how we collected and preprocessed the data. We also provided details about the demographic characteristics of listeners within the dataset, 
+and about the different methods we compared in order to overcome the problem of having music listening histories misaligned in time. 
+We continued the dissertation by describing the rationale behind a set of custom features designed to profile listeners by some of their listening characteristics.
+
+Finally, we designed and implemented an experiment where we compared the performance of several recommendation models learned from past listeners' implicit preferences for artists, extracted from music logs in the MLHD.
+
+Now we will present some thoughts and conclusions in regard to the MLHD dataset, to the set of user-centric features we designed and implemented, in regard to the concept of optimisation and performance improvement, and on music recommendation and the music industry.
+We will finalise this chapter by suggesting some future avenues for research based on the findings from this dissertation.
+
+% In order to achieve this project we carried out:
+
+% (i) the characterisation of listeners by a set of user-centric features 
+% (ii) the collections of a large dataset of full music listening histories
+% (iii) the creation of a series of models to test if the performance of series of music recommendation models may be improved by using user-centric features.
+
+% Our approach to evaluate our initial hypothesis was to design and implement a data-centric approach
+
+
+\section{About the MLHD dataset}\label{sec:conc_mlhd}
+The full music listening histories compiled in the MLHD dataset offer a large amount of information. On top of having a very fine time granularity---providing second-accurate data about the music item played back in a media player by a specific user---their aggregation into different spans of time provide clues about the characteristics of listeners' listening behaviour and their listening trends over time.
+However, from the data within each of the logs, it is not possible to know if the listener was actually listening to a track, or if anyone was paying attention to the music. 
+Other methods of collecting listening data, such as experience sampling method (ESM), may provide more accurate information in this regard, however they are much less granular (they usually collect, at the most, a few logs per day).
+Therefore, inferring trends and making conclusions about listening behaviour using the MLHD dataset should take into account this degree of uncertainty. 
+
+% 1. large source of music listening histories. it is also healthy that the music items come with MBIDs, since these are used open-source, public domain initiatives such as MusicBrainz. 
+% 2. allows the aggregation of histories in order to characterise aspects of listening behaviour
+Another advantage of the MLHD dataset for doing listening behavioural research is that it is based on MusicBrainz identifiers (MBID). MBIDs ensure unique, universal identifiers linked to the MusicBrainz core music entities (i.e., artist, release, recording, work, label, and release-group), which are used by all services of the MetaBrainz Foundation ecosystem (i.e., MusicBrainz, AcousticBrainz, ListenBrainz, and CritiqueBrainz). MBIDs are also used by other services that provide additional data accessible through these IDs (e.g., Last.fm provides folksonomy tags for artists, albums, and tracks, and DBPedia links Wikipedia open music data to MusicBrainz by means of MBIDs). Therefore, each music log within a music listening history can be linked individually to resources from these other repositories, thus allowing the aggregation of data of different characteristics into a larger dataset.
+Such aggregations may be used, for example, to study the patterns or correlations of temporal aggregations of music listening histories with acoustic features collected from AcousticBrainz. 
+
+% Furthermore, since MusicBrainz data and their advanced relationships 
+% have been provided as Linked Data on the semantic web LinkedBrainz\footnote{\url{http://linkedbrainz.c4dmpresents.org/}}, 
+
+
+% to describe the relations between its core entities. The MusicBrainz database, the resources, and their relationships, have been provided as Linked Data on the semantic web LinkedBrainz\footnote{\url{http://linkedbrainz.c4dmpresents.org/}}. Therefore, these IDs are being widely used for linking music data in the semantic-web community. 
+
+
+
+
+% 3. although the listening histories are not aligned, we implemented an approach that can normalise them in time, especially the listening histories with clear periodicity
+Each music log within the MLHD has a UNIX time stamp regardless of the geographical location or zone where it was generated. 
+This means that all logs have the same fixed point of reference.
+ % and also that they are shifted depending upon where they were smallergenerated. 
+% Ch:4 We hypothesised that listeners’ listening behaviour in holidays may be different to working days, and so this difference may be used to find the specific time zone and country where they have been submitting music logs. Furthermore, the daylight saving time shift may be also used to find out the hemisphere where people is. Its application in the summer time implies a shift of one hour, but in opposite directions for each hemisphere. We hypothesised that changes in people’s routines can be detected in their music listening profiles, and so they could be used to determine where they are. However, informal evaluation of these ideas did not provide significant results, and so we abandoned them.
+We designed an experiment that compared a few approaches for normalising these listening histories in time, and found the best approach among these options.
+
+% 4. still can be expanded by collecting more data. it would be a good idea to keep this data in case Last.fm goes down. The collected data may be added to the ListenBrainz, which is a project by the MetaBrainz foundation with the goal of allowing users to preserve their existing Last.fm data.
+The MLHD may still be expanded by collecting more listening data. This is a good idea in the eventual case that Last.fm stops providing this data or a full shutdown of the service. The data collected may be added to the ListenBrainz project, which is an initiative of the MetaBrainz Foundation with the goal of allowing listeners to preserve their existing music listening histories in the Last.fm. 
+% When uploading a full listening history to ListenBrainz, the system expects a full dump from a Last.fm history, and so the MLHD data should be formatted using the specific JavaScript Object Notation (JSON) attribute-value structure specified for the Last.fm listening histories dumps.
+
+
+% 5. BIAS: although we aim to collect data from a group of people with varied demographics, the group of listeners we have are biased, once again, towards late adolescence, early adulthood. The world coverage by country seems to be much better, since the dataset has listening data of listeners from 237 different countries, and 19 countries have at least one percent of the total number of listening logs. However, there are geographical zones that are still underrepresented such as Africa, China, and India. The populations of these zones alone represent more than half of the world's total population. %(3.825/7.4 billion). 
+
+Although we aimed to collect data from a large group of listeners of varied demographics---thus helping to overcome biases from previous user-driven and data-driven research---the listening data we collected is also biased towards late adolescent and early adult listeners. We think, however, that this bias is different from most user-driven studies. 
+As we saw in Chapter \ref{ch:human-music-listening-interaction}, many of the sampled populations in those studies were first- or second-year undergraduate students for whom participating in the study was a requisite part of a course. 
+In our case, however, we think that this age bias is due to the higher proclivity of this age group towards music listening mediated by portable devices and computers. Since this group will be older in a few years from now, and younger generations are already born into a digital era, we suppose that this trend may be different in a few years, and the large skew towards listeners in their early twenties may be less significant.
+In any case, the MLHD has a much larger amount of data than any of the studies summarised in Fig. \ref{tab:maestre}, and that any of the datasets reviewed in Section \ref{section:music_metadatabases}, and so it allows for the undertaking of studies with balanced populations of listeners of each  age. Therefore, the MLHD is valuable even with the overall age distribution bias we already mentioned.
+
+In terms of gender, the percentage of listeners self-declared as male was more than double that of females. Since the data from the dataset does not come only from the Last.fm service, but from  a large number of media players, it is not possible to say that the Last.fm service is biased towards male listeners. However, the data Last.fm collects---or at least the part represented in the MLHD---is biased towards male listeners. However, the dataset is large enough to enable analyses with gender-balanced groups of listeners.
+
+The world coverage by country in the MLHD is also biased. The dataset has listening data for listeners from 237 different countries, but only 19 countries have at least one percent of the total number of listening logs. There are large geographical zones that are underrepresented, such as Africa, China, and India. 
+% However, since the number of music listening histories is large, it also possible to create balanced group of listening histories with a minimum sample size to get confidence level of 95 percent and margin of error of 5 percent for listeners from 53 countries. 
+% EXP: The margin of error is the interval within I expect to find the value from the universe I am measuring. The confidence level express how confident we feel about the value we look for is within the margin of error
+Again, since the number of music listening histories is large, it is possible to create balanced group of listening histories for listeners from 53 countries. 
+
+
+All in all, the biases in the demographic characteristics of listeners in the MLHD imply that insights extracted from the dataset must consider these biases, and so the conclusions  should be worded carefully.
+
+
+We also acknowledge that one limitation of doing a data-centric study using data collected from listening interactions with media players and music streaming services is that it is hard to know if the listeners actually chose the music item they were exposed to, or it was a shuffle engine or the recommendation engine of a music streaming service  that suggested the music item. 
+As a result, it is hard to say if a specific music log actually reflected a listener's music preference, or if it registered what was recommended by service's recommendation or shuffle algorithm. 
+However, \textcite{wikstrom13music} pointed out that ubiquitous access to music services with recommendation algorithms is how the majority of people are actually experiencing music in the new music economy. Hence, the study of music preference nowadays cannot separate self-chosen music from algorithmically generated playlists and suggestions. These two approaches are happening at the same time, and so both have to be considered in order to get insights about listening behaviours and music preferences. 
+
+
+
+
+
+In terms of possible uses of the dataset, data aggregations extracted from the MLHD have already been used in combination with other sources of data. In particular,  \textcite{oramas16sound} used it as part of the datasets for ``Sound and music recommendation with knowledge graphs.''\footnote{The Sound and music recommendation with knowledge graphs datasets are available at \url{http://repositori.upf.edu/handle/10230/27495?show=full}} In these datasets, a subset of music listening histories from the MLHD were aggregated into playcounts and used in combination with additional song data collected from Songfacts.com to enable the study of hybrid music recommendation models using additional user-provided factual information describing songs and artists \autocite{oramas15sound}.
+
+
+\section{On user-centric features}\label{sec:conc_features}
+% 1. user-centric features in matrix factorization with factorization machines
+In this research we have shown how the technique of Factorization Machines proposed by \textcite{rendle10factorization} can be used within the context of music recommendation. 
+This technique extends plain matrix factorization by enabling the use of additional features from the user- or the item-side within a single framework.
+We took advantage of this characteristic and successfully used it in a task of learning lower-dimensional matrices from a matrix of listeners' implicit artist preferences, and a set of demographic, profiling, and contextual features extracted from the listeners' provided and aggregated data.
+
+% 2. every single demographic features as well as their combination seems to improve the performance of a music recommendation model
+A large number of the users within our dataset provided demographic information in the form of age, gender, and country. We found that using any of these characteristics in isolation consistently improved the accuracy of a recommendation model, outperforming a baseline defined by only using listeners' past implicit preferences without any additional user-centric data.
+We also designed and computed a set of features to profile listeners by their listening behaviour, and ended up using two of these within our models of recommendation: exploratoryness and mainstreamness.
+Using these features in isolation did not improve the recommendation accuracy of the models. However, when using them in combination with the demographic features, the accuracy of the models improved. 
+In particular, the best and most stable model was achieved by using the features of age, gender, country, and exploratoryness. This combination exhibited an improvement in performance of 12 percent above the baseline. 
+
+These results show that there seems to be some information encoded within these features, and in their interactions, that helps the optimisation algorithm to learn an accurate model from the data. When this model is evaluated in unseen data, it is able to replicate the implicit preferences with a smaller error, hence with a better performance.
+
+We conclude that there are substantial differences in the demographic backgrounds of listeners that affect their music preferences, at least according to the implicit preferences extracted from listeners of the MLHD and the additional demographic information they provided. 
+Exploratoryness, the profiling feature that gave a boost in the performance of the recommendation model, also indicates that some people are more inclined than others to listen over and over to the same music items. 
+The Factorization Machines algorithm seems to take advantage of this information and converges to a better and more stable model.
+
+
+
+In terms of context, we only tried a simple approach to different listening situations in which we used music listening histories data in regard to the weekdays, weekends, and full-week. 
+However, even with this candid approach we did not obtain a consistent improvement in the accuracy of the models. 
+On the contrary, many of the feature combination models were less stable, showing varying levels of accuracy for different time periods.
+The increase in variability of the models' error may have occurred because of the increase in the sparsity of the data, especially in the case of weekends-only data, which had about 30 percent fewer music logs than the full-week data.
+
+
+It is important to note that we only estimated models from the listeners' implicit prefer\-ences for artists, but not for albums or tracks. The reason for this decision was mainly to start with a problem of a lower complexity than predicting preferences on albums or tracks. 
+Since the number of artists in the dataset is one order of magnitude smaller than the number of tracks,
+ % and the number of logs with artist MBID is larger than the ones with track MBID,
+the density of observations of the matrix of preferences on artists is one order of magnitude larger than the one for tracks. 
+The number of albums, on the other hand, is almost double the number of artists. 
+Therefore, learning accurate and stable models for predicting preference on tracks or albums may need even more data, or to be addressed in a different way. 
+We suggest that this may be one of the reasons why commercial music recommendation systems usually suggest, for a given recommended artist, a set of songs or albums ranked by popularity.
+
+
+
+\section{On performance improvement and optimisation}\label{sec:conc_performance}
+% On performance improvement
+We have seen that the performance of a music recommendation model of artists can be improved by incorporating a set of user-centric features in the model framework. However, we cannot know if this improvement will be actually perceived, or how it will be perceived, by users of the music service. 
+
+From the perspective of the service, they use data from the listeners themselves, and from all available interactions between listeners and artists, to create an artist recommendation model. 
+This model is designed to predict the degree of preference of users of the system, as a whole, on yet-unknown artists.
+A successful model will reduce the error of the predictions---improving the accuracy and performance---but averaged throughout all listeners.
+Hence, some of the listeners may be greatly satisfied, but others may be not.
+
+Some listeners have more market value than others for music streaming services \autocite{echonest13how}. Therefore, in terms of economical optimisation, when developing a commercial music recommendation system it may be beneficial to consider the value of each listener within the recommendation framework.
+This characteristic would allow for the creation of recommendation models that would satisfy a service's existing clients. Thus, it would prevent their abandonment of the service as well as satisfying a service's novel users, thus building new clientele. It may be also useful to reduce the noise from the large amount of users that rarely interact with a given music service.
+
+From the point of view of the listeners, they provide the music streaming services with constant feedback about their music preferences by several means: assigning thumbs up/down to specific music items, starring items for favouriting them, listening to full tracks instead of skipping them, sharing them with other listeners directly or through posting them in social media, or by simply creating playlists, among others. 
+Although music streaming services use these signals to know if listeners actually like or dislike a given music item, the overall metrics used by media streaming services to gauge the degree of satisfaction of users in relation to the service usually reduce all the implicit and explicit feedback given by users to three metrics: (i) the rate of users' subscription cancellation , (ii) the acquisition rate of new users, and (iii) the rate at which former users rejoin \autocite{gomez15netflix}.
+In this sense, streaming services do not really take into account individual preferences or the degree of satisfaction of individual users, but they see their total audience as whole. 
+For the streaming services, a 12 percent model accuracy improvement may imply better indicators in all or some of their three main metrics, but this improvement may not be equally perceived by all listeners.
+
+% On optimisation
+
+% In terms of optimisation, 
+In this dissertation we have investigated about the use of listeners' demographic, profiling, and contextual signals to optimise a model for artist recommendation, thus reducing the error of the model and increasing its accuracy.
+We have seen that the most commonly implemented and successful approach for recommendation is collaborative filtering (CF). 
+However, CF-based recommendation approaches are biased toward recommending the more popular items. 
+Since these systems will recommend popular items, listeners will be exposed and listen to these popular items. Then, CF systems will learn from listeners' past preferences that they have been listening more to these popular items than to less popular ones, and so will end up recommending them again, and again. 
+As a result, it may be pertinent to ask ourselves what is actually being optimised, how we are optimising it, and for whom we are actually optimising for.
+
+In terms of ``the what,'' researchers in recommendation are actually trying to come up with a mathematical model that approximates, as much as possible, a matrix of preferences of users on items. To achieve this, they use iterative methods that converge to a solution or create heuristic strategies to approximate a solution. 
+However, when using iterative methods, the approaches and the models are actually agnostic to the items actually being recommended. 
+We think it may be important to incorporate domain-specific signals into the optimisation process, or into the heuristic strategies, since these signals can provide extra information about the listeners or the music items that may improve the recommendation. 
+
+When using past music listening histories for creating recommendation models, we are actually analysing past behaviour in order to try to predict future behaviour. Although this may seem true for some people, it may not be true for the population as a whole. 
+Also, this approach of using past preferences to predict future ones is based on the idea that the most habitual and consistent behaviours are more predictive than the infrequent ones. 
+However, people change over time and sometimes they may like to be exposed to events or items that may have been triggered by unexpected situations or actions.  
+As a result, in regard to ``how'' we are trying to optimise the data, we think that this approach may bias the predictions towards certain results and items based mostly on the most frequent behaviours.
+
+For whom we are optimising? Not for all listeners as a whole, and certainly not for the musicians. 
+The music industry has changed in many ways since its downfall and comeback but the payout rates to musicians are smaller than before \autocite{ball15less}. 
+% \footnote{New services such as \url{http://forgotify.com/} have tried to take advantage of this fact and released applications to explore this never-heard long tail of artists and songs.}
+In fact, according to \textcite{ifpi16global}, payments to artists are proportionally minuscule in comparison to the massive increase in consumption in music streaming services. 
+Also, not every artist, album, or track has been listened by people in these services. The music streaming service Spotify released information acknowledging that 20 percent of the total number of songs in their database never have been streamed \autocite{spotify13percentage}. 
+Hence, since CF-based systems are inherently biased towards the most popular music items, the recommendation system will end up favouring the small set of the most popular items. Therefore, it seems that music services are actually optimising for the most popular musicians. 
+
+We already discussed that the individual listener is not the final target of the optimisation. The final target of the optimisation seems to be the overall set of users of a system, but as a whole. 
+In this sense, the recommendation itself is at the core of these systems but it is not the most important feature, at least at the user level. 
+Finally, as there seems to be many media streaming services, but in fact we live in an era of oligopoly. With the market dominated by just a few participants, listeners only have a handful of services to try and compare. Therefore, it is possible that people end up naturalising the recommendations provided by a few services, and the way these are provided, perhaps adopting and incorporating them as if they were the ``right ones.''
+% na\"ively.
+
+
+
+\section{On music recommendation and the music industry}\label{sec:conc_recommendation}
+As reviewed in Chapter \ref{ch:human-music-listening-interaction}, general recommendation systems are usually based on information describing inner characteristics of the items (i.e., content-based recommendation), on the correlation of people's past preferences on items (i.e., collaborative filtering), or a combination of these methods. These approaches have been implemented and tested in the music domain with varying degrees of success since the origin of automated recommendation.
+% However, good practices from other domains may be implemented in music recommendation systems.
+Here are three suggestions that come from good practices from other domains that may provide better and more enjoyable recommendations, thus helping to improve the current state of music recommendation systems.
+
+First, instead of just providing a single musical item, or song, it would be worth presenting the user with clear, alternative paths of recommendation based on different approaches. By these means, the service would allow listeners to be in charge of choosing the recommendation path they want to take in order to create their own listening session, or to fulfil their mood or enhance an activity. 
+This approach would be similar to the many routes of discovering goods that Amazon provides to its users. This technique also has the additional advantage of providing the service with means of tracking over time the individual listeners' recommendation chosen paths, thus making it possible to evaluate the different recommendation approaches. 
+
+Second, user profiles should be augmented. As basic CF-based recommendation systems rely only on previous preferences, many music streaming services only ask for a couple of preferred artists upon user's registration, and then they start learning from the listeners' implicit and explicit preferences over time. However, a much stronger listener description based on demographic, contextual, and behavioural data, may help to improve the recommendation from the beginning, even without previous implicit or explicit preference data.
+
+Third, an effort to make more persuasive music recommendation systems should be encouraged. Most current systems just work as a ``black box,'' where the listener does not know what kind of process or method was used to create a recommendation. \textcite{ross08recommendations} pointed out that listeners want to be recommended, but also some of them may want to know \textit{why} a specific song or artist was recommended. 
+Therefore, listeners may benefit of music services with a more transparent automated recommendation and playlist creation system. Some listeners may also benefit of access to complete metadata about the recommended artists or songs. 
+
+The aforementioned best practices from other domains may be implemented in music recommendation systems in order to provide  recommendations that may be perceived as more meaningful. However, the individual listener's perception about music recommendation still seems to not be very important for music streaming services.
+In fact, since most listeners have freemium accounts on commercial music streaming services, one of the biggest efforts by these companies is to try to find what types of ads listeners are more likely to respond to \autocite{prey16musica}.
+
+
+
+
+
+Finally, some thoughts about the music industry as a whole in regard to music streaming services and their recommendation systems. 
+It is commonly heard nowadays that revenues coming from digital music distribution finally overtook those from physical copies, that music streaming is the fastest growing sector of the industry \autocite{ifpi15global}, that revenues from streaming are steeply increasing the overall income of the business, and that these companies are saving the music industry \autocite{ifpi16global}. 
+% However, these claims speak only about the overall, global income of the major record labels. 
+% Those reports from the music industry do not say how much of that money actually ends up in the pockets of the musicians, nor how that money is generated.
+% major labels, the independent sector, the publishing sector, collection societies---on a territory-by-territory basis
+% Moreover, since a share of some music streaming services is also owned by the major record labels, those three labels are receiving money from both sides. 
+% Hence, it is hard to know if the price per stream is fair. 
+% The industry of the music seems healthier than a couple of years ago, but since it is founded on copyright is still a complicated old business.
+% Moreover, the number of musicians arguing than what they are receiving per stream is unfair is augmenting.
+The irony, however, is that the music business is not merely growing by selling music, but by monetising the everyday digital traces of billions of listeners. 
+The profit in music streaming services comes from listeners in their premium paid option, as well as from the many users in the freemium tier that these services monetise. 
+Since the number of listeners in the latter option is much larger than in the former, the growth of these services depends largely on listeners in the freemium tier~\autocite{midia13making}.
+Hence, music streaming services are trying to understand the psychographic characteristics, music listening behaviour, and the musical characteristics of the listeners in the freemium version. This estimation would allow the music services to predict the specific future value of each listener and to monetise this group via targeted advertising~\autocite{echonest13how}.
+As a result, an increasing part the growth and healthiness of the music industry is based on accurate advertisement targeting for listeners.
+
+% Identify psychographic/affinity characteristics of high-value listeners to help the service monetise that group via targeted advertising.~\autocite{echonest13how}
+
+Since music has previously been a major force with a strong drive for social change, it is particularly unsettling to realise how the music industry and the large media corporations are now using their whole music catalogue as a background for mapping connections between people and advertisements.  
+It remains to be seen how the music, the musicians, and the audience might manage to reverse this situation in order to give the music the place it has had for the last century. 
+% Straw's on "Popular music as cultural commodity"
+
+
+
+% We really hope that people's energy and desire about music listening will provide a new come back 
+
+% Since the desire of exchanging music shaped in the past how we are nowadays experiencing music, it is particularly upsetting how the music industry and the corporations were able to convert all people's energy and desire about music listening into a commodity. 
+% We hope the desire of people about music will give back a new change in how we interact with music, and in the space the  musical work should have. 
+
+% Data-driven music streaming services are but one example of how we are increasingly generating digital traces as we go about our everyday lives, engaged in everyday activities. As a result, the datafication of listening has potential implications that extend far beyond music or ad personalisation.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+% In the same line, from \textcite{herrera10rocking}: ``Data coming from Lastfm.com contain playcounts that cannot be attributable to specific listening decisions on the side of users. If they select radio-stations based on other users, on tags or on similar artists there are chances that songs, artists and genres will not recur in a specific user’s profile. In general, even in the case of having data coming from personal players obeying solely to the user’s will, we should discard (i) users that do not provide enough data to be processed, and (ii) artists and genres that only appear occasionally. We prefer to sacrifice a big amount of raw data provided those we keep help to identify a few of clearly recurring patterns, even if it is only for a few users, artists or genres.''
+
+
+
+% Today, just understanding music preference is not enough, since most people do have only free accounts in commercial music streaming services, these music information retrieval systems are trying to find what types of ads listeners are more likely to respond to ~\ref{prey16musica} (it references Hof 2013)
+
+
+% Developing a zero UI music interface, a music player with minimum or no music interface that minimizes all user-machine interactions needed to create good selections of music for accompanying people in their every day life activities. % https://musicmachinery.com/tag/zero-ui/
+% Currently, the main device for listening to music is the mobile phone (citation needed). Phones are capable of retrieving and storing people's signals about their age, sex, where they are, what are they doing, the time of the day, day of the week, weather, and people's schedule. The aggregation of this data may be used to get information about the listener and thus generate better music choices~\autocite{lamere14zero}.
+
+% Current music interfaces still use very little from the many available information that mobile phones can retrieve in order to aid music recommendation systems~\autocite{lamere14zero}
+
+
+
+
+
+
+
+% Personalisation is important (learn from Netflix: ~\autocite{gomez15netflix})
+
+
+\section{Future work}
+In this dissertation we have investigated the use of user-centric features for the performance improvement of an artist music recommendation model. 
+Although our approach created a substantial improvement in accuracy, there are many potential research paths that may be followed in order to try different techniques to improve the performance even more, or in a different way. 
+We will now itemise and describe each of these research paths.
+
+
+
+\begin{description}
+% FEATURES
+\item [User-centric features] The listening profiling features we designed are static features. However, as people's listening behaviour and music preference seem to change over time, the set of user-centric features may be dynamic, incorporating this variation over time.
+
+For example, exploratoryness may change depending upon the activities we are doing, or who we are with. Hence, more specific recommendations may benefit of knowing the user's desire to explore music for specific moments. On the other hand, since mainstreamness depends upon the overall ranking of music items and individual rankings, these rankings should be also dynamic, in order to compute the time-varying correlation between them.
+
+Moreover, in order to better characterise individuals, we should constantly keep investigating and designing new listening behavioural features. For example, a feature such as \textit{togetherness} may be useful to identify the extent that listeners belonging to the same geographical zone listen to the same music entities.
+
+% \textit{Adventurousness}: how open the listener is to music outside their ``musical comfort zone''.
+% \textit{Diversity}: how varied the listener’s preferred styles and genres are.
+% \textit{Freshness}: the listener’s relative preference for new and recent artists vs older music.
+% \textit{Locality}: the relative spread, worldwide, of where the listener’s preferred artists come from.
+% From \autocite{echonest13how}
+
+
+
+% RECOMMENDATION
+% Album and track recommendations
+\item [Recommendation] A next iteration of the project may evaluate the performance of using user-centric features with other music items such as albums and tracks. However, since the data is even more sparse than for recommending artists, this may be a harder problem. This issue may be solved by collecting more data and making use of another map reduce technique on a larger cluster.
+
+% Other contexts
+Since all the music listening histories are now properly aligned in time, it would be worth evaluating different temporal contexts, such as different times of the day. However, instead of computing and comparing the performance of separated models (i.e., one per context), it would be ideal to have all information within a single framework. This would allow for all data to be entered and processed in a single model, thus avoiding training models from data with different sparsity.
+
+
+
+
+
+
+
+% TECHNIQUES
+\item [Technology and techniques] In order to process an even larger dataset, this project may benefit from porting the dataset and all computations into Spark, and from using the MLlib machine learning library~\autocite{meng16mllib}. 
+This technology was not available in ComputeCanada's high-performance computing resources at the time of the data processing and analysis presented in this dissertation. Faster calculations on even larger datasets may be implemented by using these technologies in scalable cloud computing services.
+
+% k-fold cross-validation
+When we analysed the performance improvement of an artist recommendation model, we created a subset with a random 10 percent of listeners from the whole dataset, and then we split this subset into training and testing datasets. 
+We used these two subsets in order to learn and evaluate models with different combinations of user-centric features. For each feature combination we repeated the training and evaluation processes 10 times in order to assess how stable the trained models performed on a novel set of data. 
+However, in order to evaluate the topology of the data for the whole dataset, a \textit{k}-fold cross-validation process may be implemented. 
+For example, a two-step 10-fold cross-validation may iterate over subsets of 10 percent of listeners, and within each of these subsets, another 10-fold cross-validation process would evaluate the accuracy of the models in the testing subsets. As a result, the computational time of this approach would be roughly 10 times longer than the time we took for the original experiment. The big advantage of doing this is that we would be using the entirety of the data at hand in order to learn and evaluate recommendation models.
+
+
+
+% Different number of latent factors
+We followed previous research on the Netflix dataset and performed a grid search over a large number of latent factors. However, a better approach may be to start doing a broad grid search for the hyper-parameters optimisation, and then to perform a much narrower one in zones exhibiting a better accuracy until finding the sweet-spot. An alternative approach would be to use a random search for finding the best set of hyper-parameters, which has been reported to be more efficient than performing a grid or manual search~\autocite{bergstra12random}.
+% Any of these approaches should be implemented in combination with the  \textit{k}-fold cross-validation method described previously in order to evaluate the differences in results by using the full dataset.
+
+% DATASET
+\item [MLHD Dataset] 
+We will study how to make the MLHD openly available to the music research community, considering the Terms of Service of Last.fm and the Last.fm API. 
+This path of research should result in a full dataset with anonymised usernames, released for non-commercial, academic research. 
+Ideally, all the MusicBrainz identifiers in the dataset should be linked to the latest redirected identifiers in the MusicBrainz database in order to have the most up-to-date identifiers.
+A dataset of listening histories with the size and scope of the MLHD does not have any precedents in the study of listening behaviour and music preference, and should be of great interest to the music research community.
+
+
+
+\end{description}
+
+
+% dataset
+% techniques
+% features

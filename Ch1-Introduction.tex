@@ -1,0 +1,123 @@
+%!TEX root = ThesisEx.tex
+% \resetdatestamp
+
+\chapter{Introduction}\label{ch:1-introduction}
+% When people have no choice, life is almost unbearable. As the number of available choices increases, as it has in our consumer culture, the autonomy, control, and liberation this variety brings are powerful and positive. But as the number of choices keeps growing, negative aspects of having a multitude of options begin to appear. As the number of choices grows further, the negatives escalate until we become overloaded. At this point, choice no longer liberates, but debilitates. It might even be said to tyrannize~\autocite{schwartz04paradox}.
+The life of people is unbearable when there are no choices. A few options give people a sense of liberation, and when there are more of them, people feel empowered. However, when the number of choices gets bigger, some people may start becoming disoriented. With too many of them people become saturated, overloaded. At this point, too many options debilitate instead of liberate, and this is one of the paradoxes of choice \autocite{schwartz04paradox}.
+
+During the past few decades, we have seen a dramatic increase in the number of goods and amount of global information that people can access instantly with the press of a button. 
+Movies, music, food, books, travel, articles, news, social media feeds, and almost everything people can imagine can be browsed and accessed effortlessly. 
+However, many people may know they want something, but they may not be aware of what it is, or how to access it.
+
+In this dissertation, we present our research about the automated recommendation of music. In particular, we investigate about the use of \textit{user-centric} features to create better models of recommendation. 
+
+\section{Motivation}~\label{sec:motivation}
+The way in which people consume and enjoy music during the last century has changed drastically, and is still changing rapidly. Throughout the twentieth century people were exposed to a number of different mediums designed to encode the sound waves of music. These formats allowed people to play back musical performances at will, whenever and wherever they want.
+As a result, people no longer needed to go to specialised venues to listen to the musical artists they like, and thus the  performers were actually separated from their audience.
+This change in music consumption also enabled people to consume music in a similar way in which they consume any product. People could go to a record store and buy music in a similar fashion that they shop for other goods.
+
+The music industry in general, and the sound recording industry in particular, grew rapidly during the first 50 years of the twentieth century, and the number of record labels, artists, and releases exploded during the sixties \autocite{wikstrom13music}. The large increase in releases meant that people had to be guided to find the artists, releases, and songs they may be interested in. The guidance came in the form of specialised record store owners or clerks, and radio DJs. The former tried to sell music the stock they had in their brick-and-mortar stores to shop-goers, and the latter searched for music and played it back on their radio programs, acting as music taste-makers of their audience \autocite{razlogova13past}. %STRAW
+
+% Deregulation -> Reducing state regulation of media ownership
+% eliminated limits the FCC had previously placed on the number of radio stations a single entity could own nationally and relaxed limits the FCC had placed on ownership of radio stations in a local market
+
+
+The deregulation of media ownership in the United States  that started in the seventies and that led to the Telecommunications Act law in 1996, eliminated limits on the number of radio stations a single entity could own \autocite{williams02radio}. In contrast to previous decades, this change allowed media firms to merge and to own a large amount of smaller entities, which ended with an industry controlled by radio ``giants''  instead of a larger number of independent, local radio broadcasters. Closely tied to the media industry, the recording industry and its market turned into an oligopoly. %STRAW
+The number of releases increased, but the music business began to be controlled by a few large corporations that started to distribute the releases through chain stores, and that also owned and controlled the radio and the music they broadcast. This replaced the freedom DJs used to have with a more limited pool of tracks.
+In parallel, the development of digital recording in the seventies, its popularisation towards end consumers during the eighties, and the invention and mass popularization of compressed audio formats in the nineties enabled deeper changes in music consumption. 
+People no longer needed to actually buy a physical object that carried the music, the music instead came digitised in small files. Moreover, the global adoption of the Internet during the late nineties and at the turn of the millennium finally changed the paradigm of music consumption. People began storing large music collections on small portable devices and also started sharing audio files through peer-to-peer networks. 
+People began losing their drive or impetus to pay for enjoying music, they just wanted access to all the music available, for free. This drastic change in consumption marked the collapse of the old music industry, but it was also the beginning of the new music industry \autocite{wikstrom13music}. 
+
+Cleverly, media technology companies started to design new ways of distributing music. They saw an opportunity in people's behavioural change in regard to music consumption, and took advantage of the compressed music file formats and the miniaturisation and portability of media players. As a result, Apple released the iTunes Store in 2003 after making deals with all the major record labels. Their solution to music distribution came in the form of a large online store made up of individual songs that came from the majority of the catalogue of the major labels. From the beginning of the iTunes Store, the music business saw this new model of music distribution as a saviour of their industry. In fact, it was a big success and sold more than 25 billion songs during its first 10 years \autocite{apple13itunes}.
+
+In parallel, Rhapsody and Pandora started in 1999 and 2000, respectively, as online streaming music services. Instead of selling music files, these services allowed people to have web-based access to collections of songs, enabling them to listen to pre-made or self-made music channels, in what can be seen as the evolution of the old radio model into a customisable online radio. Although streaming services had a slow beginning, the number of paid subscribers to music subscription services have increased constantly, and nowadays the revenues from music streaming exhibit the largest increase in the music industry, with a 45 percent increase average during the past five years. 
+Revenues from music downloads and physical sales, on the other hand, have had a steady decrease \autocite{ifpi16global}. 
+The large and constant increase in revenues from streaming has interested many new media technology companies. As a result, during the past few years a large number of services for media delivery and consumption have appeared in the entertainment landscape. 
+
+Digital music streaming services such as Spotify, Pandora, Deezer, Tidal, Google Play Music, and video sharing websites such as YouTube and Vimeo nowadays provide real-time access to millions of songs. 
+In these massive repositories, however, searching and selecting the best music to match our listening context or mood can be a difficult task due to the large amount of music available, and our inability to process all the available information. 
+% STRAW 1
+Music streaming companies offer their customers with alternative ways of exploring the musical items they have in their databases. For example, listeners can search directly for specific artists, albums, or songs; browse the whole catalog of a specific musical artist; check for the most popular artists or songs at a specific moment; and let the system create recommendations for them. Different ways of interaction and information filtering provided by these services aim to help people to find the best music to accompany their everyday life, while at the same time keeping them using their system and paying for the services provided by these companies.
+
+
+Automated music streaming systems offer people ways to discover and enjoy music within large repositories of music. Using different information filtering methods based on people's previous musical preferences and ratings, human-entered information about songs, and analysis of songs' acoustic features, music recommendation systems generate user-customised recommendations and playlists.
+However, \textit{user-centric} music listening features, such as people's demographic characteristics, their music listening behaviour traits, and their listening context, have not yet been extensively incorporated in traditional music recommendation systems. 
+Also, the value of music in our everyday life seems to depend on the context in which we hear music, and so we hypothesise that extracting, analysing, and exploiting user-centric features may improve the performance of automated music recommendation systems.
+
+
+
+
+
+% WHY people need recommendation: provide different reasons (talk about asking for music in the record store, then radio DJs, etc)
+
+
+
+
+% The digital era also increased the number of tracks within a certain format by four orders of magnitude (i.e., an album or CD is able to store two orders of magnitude of tracks, an iPod or phone about five orders of magnitude). But current music streaming services offer access to repositories with songs in the order of eight orders of magnitude.
+
+
+
+% At the end of the introductions, tell why I am doing this: 
+% My motivation for writing this thesis is ... Talk here a bit about the experience of having an online radio ... or write it at the beginning, but use the word recommendation right away
+
+
+\section{Research aims and dissertation outline}
+The research goals of this dissertation are threefold.
+First, we want to understand how people make use of music and what are the relevant factors that affect their music preference in everyday life. 
+Second, we want to know how general automated recommendation is formalised, what are the main techniques, and how these can be implemented.
+Third, we want to evaluate if the use of user-centric features can improve the performance of a music recommendation model.
+
+
+% The first of the goals is achieved in this dissertation by investigating previous research about people's listening behaviour and music preference, and the factors that may influence these preferences. 
+% We also summarise the methods used in those studies and the findings spotted in them. The comparison of the methods as well as the characteristics and scope of the datasets in those studies informs our own data needs.
+% The second goal is addressed by doing a review of the main approaches for general large-scale recommendation, and how these approaches have been  implemented in the domain of music. 
+
+
+% We will make use of freely available information left by users of music streaming systems within their database.
+
+% There is a small number of music databases that allow the retrieval of music listening data. One of the aims of this research is to collect and analyse data from these repositories with the goal of gaining insights into our listening behaviours, and then use them to inform the design of better user-centric music recommendation systems.
+
+
+
+
+
+
+
+
+% \begin{itemize}
+% \item A dataset of music listening histories of very large size
+% \item A set of listening behavioural features to describe music listening behaviour
+% \item The testing of a single framework for matrix factorisation with additional features from the user side in the music domain
+% \end{itemize}
+
+
+% \section{Dissertation outline}
+
+This dissertation is structured in four major parts: (i) an overview of studies concerning the use of music in everyday life and on all major databases of music-related data, (ii) a comprehensive summary about the recommendation problem and its formalisation, (iii) the creation of a very large dataset of music listening histories, (iv) the modelling of people's listening behaviour by a set of user-centric features and the creation and evaluation of recommendation models learned from the listening data in combination with the additional user-centric information.
+
+We devote Chapter 2 of the dissertation to a literature review about the uses of music in everyday life and on research findings of user-centric studies. 
+We also review all freely available large music metadatabases, detailing the information they convey and reviewing the research findings using these databases. 
+In these two sections, we summarised the insights found and how these discoveries may inform the development of context-aware music recommendation systems. 
+
+In Chapter 3, we  provide a review of the techniques developed in the past two decades for developing and implementing automated recommendation systems. Although most techniques are domain-agnostic, we will provide insights into how those techniques are tailored to the domain of music, considering the specific characteristics of music listening consumption.
+
+In Chapter 4 we describe the assemblage of the Music Listening Histories Dataset (MLHD). This dataset is made of a large amount of music listening histories collected from Last.fm---one of the largest and persistent freely accessible repositories of music listening logs. 
+Over a two-year period we collected 27 billion logs from more than half-a-million listeners. The size of this dataset allowed us to perform studies of listening behaviour for different demographic groups. 
+
+In Chapter 5, we elaborate on the creation of novel listener profiles for users within the MLHD dataset. This user information is extracted from self-declared demographics data and a set of custom-built profiling features characterizing the music listening behaviour of users. 
+The longevity of the collected listening histories allows their aggregation into basic forms of listening context.
+We also use the dataset and the listeners' profiling features in the creation of models for musical artist recommendation learned from the past preferences of listeners on music items. 
+We end the chapter by using several combinations of people's demographic, profiling, and contextual features, and evaluate their impact in the performance improvement of a user-centric music recommendation model.
+
+Finally, in Chapter 6 we reflect on the MLHD dataset, the set of user-centric features we designed, performance improvement and optimisation, and on music recommendation and the music industry in general.
+
+
+\section{Research contributions}
+Contributions of this dissertation are threefold. 
+Firstly, we collected a dataset of music listening histories that is two orders of magnitude larger than previously available datasets. A dataset of this size can be used to perform offline studies of people's listening behaviour in isolation, or as a supplement to other big datasets of music-related information.
+Secondly, we formalised and developed a set of features to describe and to model aspects of people's music listening behaviour. We also visualised how much these features were correlated to demographic characteristics of listeners.
+Thirdly, we evaluated if the use of listeners' demographic, profiling, and contextual features improved the accuracy of a music recommendation model, and we also evaluated what combination of features achieved the best performance. 
+
+We hope the insights from this dissertation will inform the implementation of future automated music recommendation systems using  people's demographic characteristics, and their listening profile and context in order to create better recommendations. 
+
+

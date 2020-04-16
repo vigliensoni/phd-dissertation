@@ -1,0 +1,8 @@
+1. Replace vigliensoni16automatic into the different sections 
+1.1 Ch8 needs to be replaced
+2. Template wang14interactive
+3. More demographics in Ch7, such as distribution of logs per day of the week, hour of the day, etc
+4. Do countries have different listening patters? See approach on hauger13million. Their approach, though, use genre tags to test if different countries listen to different genres.
+5. Create ranking of topartists, albums, and songs in the dataset
+6. Retrieve Last.fm tags for songs in the dataset
+7. Music recommendation techniques section does not have feature extraction explanation (take from COMPS)
